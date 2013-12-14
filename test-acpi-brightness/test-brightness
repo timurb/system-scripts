@@ -1,0 +1,8 @@
+#!/bin/sh
+
+[ "$(whoami)" != "root" ] && echo "This script should be run as root" && exit 1
+
+for x in $(seq 0 100); do 
+  echo $x | tee /sys/class/backlight/acpi_video0/brightness
+  sleep 1
+done
