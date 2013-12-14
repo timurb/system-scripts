@@ -1,0 +1,6 @@
+# /etc/acpi/events/lid_close
+# This is called when the user closesthe lid and calls
+# /etc/acpi/lid.sh for further processing.
+
+event=button/lid
+action=/etc/acpi/lock-screen.sh
