@@ -72,14 +72,15 @@ index() {
 which bc > /dev/null || fail "'bc' program is required for this script"
 
 case "$1" in
-  up) OP="+" ;;
-  down) OP="-" ;;
+  up) OP="+ 1" ;;
+  down) OP="- 1" ;;
+  check) OP="" ;;
   *) fail "Wrong operation specified: ${OP}" ;;
 esac
 
 CURVALUE="$(cat "${BRFILE}")"
 CURINDEX="$( index "${CURVALUE}" "${BRVALS}" )"
-NEWINDEX="$(( ${CURINDEX} ${OP} 1 ))"
+NEWINDEX="$(( ${CURINDEX} ${OP} ))"
 
 # edge cases
 set -- $(echo "${BRVALS}")
@@ -91,4 +92,4 @@ TARGET="$(eval "echo $"${NEWINDEX} )"
 sleep 0.1 # don't race with other brightness controls
 echo $TARGET > /sys/class/backlight/acpi_video0/brightness
 
-cat "${BRFILE}" # for commandline debugging
+cat "${BRFILE}" >> /tmp/brightness # for commandline debugging
